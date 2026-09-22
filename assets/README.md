@@ -4,25 +4,25 @@ Drop images here. The site picks them up by filename — no build step, no impor
 
 | File | Used by |
 | --- | --- |
-| `hero.jpg` | The hero panel on the right of the headline. |
+| `bonnie.png` | The hero panel on the right of the headline. |
 
-## hero.jpg
+## bonnie.png
 
 - **Aspect ratio:** 3:4 (portrait). Other ratios work — the image is
   `object-fit: cover`, so it crops from the centre rather than squashing.
 - **Suggested size:** around 900×1200. Bigger is wasted; smaller goes soft on
   retina screens.
-- **Format:** `.jpg` is what the page asks for by default. To use a `.png`,
-  `.webp` or `.avif` instead, change the `src` on `#heroImg` in `index.html`.
+- **Format:** any web format works — `.png` keeps transparency, `.jpg` is
+  smaller for photos. Whatever you use, match the `src` on `#heroImg`.
 
-If `hero.jpg` is missing or fails to load, the page falls back to a dashed
+If the hero image is missing or fails to load, the page falls back to a dashed
 placeholder box automatically — nothing breaks, so it's safe to deploy before
 you have the art.
 
 ## Adding a file
 
 ```
-git add assets/hero.jpg
+git add assets/bonnie.png
 git commit -m "Add hero image"
 git push
 ```

@@ -34,9 +34,19 @@ At zero the clock freezes and a "bidding is closed" line appears.
 
 ### The hero image
 
-Put a file at `assets/hero.jpg` and it appears automatically — see
-[`assets/README.md`](assets/README.md) for sizing. If it's missing, the page
-falls back to a dashed placeholder box, so it's safe to deploy without it.
+The hero is self-hosted from `assets/bonnie.png`:
+
+```html
+<img id="heroImg" src="assets/bonnie.png" alt="Bonnie Blue" />
+```
+
+To swap it, drop a new file in `assets/` and update that `src`. If the image fails to load the page falls back to a dashed
+placeholder box rather than showing a broken image. See
+[`assets/README.md`](assets/README.md) for sizing.
+
+Framing is `object-fit: cover` with `object-position: 50% 12%`, which favours
+the top of the image so a head doesn't get cropped. Adjust that percentage in
+the `.hero-art img` rule if the crop sits wrong.
 
 ## Run locally
 
