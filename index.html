@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Choose A Name — Bonnie Blue</title>
+<meta name="description" content="Come up with a name and bid on it. The winning name gets access to a private party to celebrate the name selection." />
+<meta property="og:title" content="Choose A Name" />
+<meta property="og:description" content="Come up with a name and bid on it. Highest bid wins." />
+<meta property="og:type" content="website" />
+<meta name="theme-color" content="#4ec3e9" />
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='22' fill='%234ec3e9'/%3E%3Cpath d='M50 78C30 64 18 54 18 42a16 16 0 0 1 32-6 16 16 0 0 1 32 6c0 12-12 22-32 36z' fill='%23fff'/%3E%3C/svg%3E" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&family=Grand+Hotel&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet" />
+<style>
+:root{
+  --sky:#4ec3e9; --sky-deep:#2ea8d6; --sky-dark:#1f93c2;
+  --sky-pale:#9bdcf3; --sky-row:#7fd2ef;
+  --pink:#ff8fd0; --pink-soft:#ffb3e0;
+  --ink:#123a52; --ink-deep:#0c2a3d;
+  --white:#fff; --cream:#f7f0e6;
+  --max:1180px;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;background:var(--sky);color:var(--white);
+  font-family:'Nunito',system-ui,-apple-system,sans-serif;
+  line-height:1.6;overflow-x:hidden;-webkit-font-smoothing:antialiased;
+}
+a{color:inherit}
+img{max-width:100%;display:block}
+
+/* ---------- shared bits ---------- */
+.wrap{max-width:var(--max);margin:0 auto;padding:0 20px;position:relative;z-index:2}
+
+.btn{
+  display:inline-flex;align-items:center;gap:10px;
+  padding:12px 22px;border-radius:12px;border:3px solid var(--ink);
+  background:rgba(255,255,255,.14);color:var(--white);
+  font-family:'Nunito',sans-serif;font-weight:800;font-size:1rem;
+  text-decoration:none;cursor:pointer;
+  box-shadow:0 4px 0 rgba(18,58,82,.35);
+  transition:transform .12s ease, box-shadow .12s ease, background .2s ease;
+}
+.btn:hover{transform:translateY(-2px);box-shadow:0 6px 0 rgba(18,58,82,.35);background:rgba(255,255,255,.26)}
+.btn:active{transform:translateY(2px);box-shadow:0 2px 0 rgba(18,58,82,.35)}
+.btn--solid{background:var(--white);color:var(--ink)}
+.btn--solid:hover{background:var(--white)}
+.btn .tg{
+  width:26px;height:26px;border-radius:50%;background:var(--sky-deep);
+  display:grid;place-items:center;flex:0 0 auto;
+}
+.btn .tg svg{width:15px;height:15px;fill:var(--white)}
+
+/* bubble display type */
+.bubble{
+  font-family:'Baloo 2','Trebuchet MS',system-ui,sans-serif;font-weight:800;
+  line-height:.92;letter-spacing:.01em;text-transform:uppercase;
+  color:var(--white);
+  -webkit-text-stroke:9px var(--ink-deep);
+  paint-order:stroke fill;
+  text-shadow:0 10px 0 rgba(12,42,61,.28);
+  margin:0;
+}
+.bubble .pk{color:var(--pink)}
+
+.heart{display:inline-block;width:.5em;height:.5em;vertical-align:.12em;
+  -webkit-text-stroke:0;filter:drop-shadow(0 4px 0 rgba(12,42,61,.25))}
+.heart svg{width:100%;height:100%}
+
+/* soft background hearts + clouds */
+.deco{position:absolute;inset:0;overflow:hidden;pointer-events:none;z-index:0}
+.deco .h{position:absolute;opacity:.10}
+.deco .h svg{width:100%;height:100%;fill:var(--white)}
+.cloud{position:absolute;opacity:.85;pointer-events:none}
+.cloud svg{fill:var(--white);width:100%;height:100%}
+
+/* ---------- header ---------- */
+header{
+  position:absolute;top:0;left:0;right:0;z-index:20;
+  display:flex;justify-content:flex-end;gap:12px;
+  padding:22px 26px;flex-wrap:wrap;
+}
+
+/* ---------- hero ---------- */
+.hero{position:relative;min-height:640px;padding:120px 0 0;overflow:hidden}
+.hero .grid{
+  display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,.95fr);
+  gap:30px;align-items:center;
+}
+.eyebrow{
+  font-family:'Grand Hotel','Segoe Script',cursive;font-size:clamp(2rem,3.4vw,2.9rem);
+  color:var(--white);margin:0 0 -.35em 6px;
+  text-shadow:0 3px 0 rgba(12,42,61,.35);
+}
+.hero h1{font-size:clamp(3.1rem,7.6vw,6.2rem)}
+.hero h1 .l2{display:block;padding-left:.6em}
+.lede{
+  max-width:560px;margin:34px auto 0;text-align:center;
+  font-size:clamp(1.02rem,1.5vw,1.25rem);font-weight:700;
+  text-shadow:0 2px 0 rgba(12,42,61,.28);
+}
+.hero-cta{display:flex;gap:16px;justify-content:center;margin-top:26px;flex-wrap:wrap}
+.hero-copy{text-align:center}
+.hero-copy .eyebrow,.hero-copy h1{text-align:left}
+
+/* hero art placeholder — swap .hero-art's contents for a real image */
+.hero-art{position:relative;align-self:end;justify-self:center;width:100%;max-width:440px}
+.hero-art .frame{
+  position:relative;aspect-ratio:3/4;border-radius:28px;overflow:hidden;
+  background:radial-gradient(120% 90% at 50% 10%, #8fd9f2 0%, #4ec3e9 60%, #35b2dd 100%);
+  border:4px dashed rgba(255,255,255,.55);
+  display:grid;place-items:center;text-align:center;padding:24px;
+}
+.hero-art .frame p{
+  font-weight:800;font-size:.95rem;opacity:.9;margin:0;
+  text-shadow:0 2px 0 rgba(12,42,61,.25);
+}
+.hero-art img{width:100%;height:100%;object-fit:cover;position:absolute;inset:0}
+.qmark{
+  position:absolute;width:74px;height:74px;border-radius:50%;
+  display:grid;place-items:center;border:5px solid var(--ink-deep);
+  font-family:'Baloo 2','Trebuchet MS',system-ui,sans-serif;font-weight:800;font-size:2.1rem;line-height:1;
+  color:var(--ink-deep);box-shadow:0 6px 0 rgba(12,42,61,.25);
+}
+.qmark--pink{background:var(--pink);left:14%;bottom:26%}
+.qmark--blue{background:var(--sky-pale);right:14%;bottom:30%}
+
+/* ---------- queue strip ---------- */
+.strip{position:relative;background:var(--sky);padding-top:10px;z-index:3}
+.strip .road{
+  position:relative;height:120px;
+  border-bottom:5px solid var(--ink-deep);
+  background:linear-gradient(to bottom, transparent 0 70%, rgba(255,255,255,.28) 70% 100%);
+  overflow:hidden;
+}
+.queue{
+  position:absolute;left:0;bottom:5px;display:flex;align-items:flex-end;gap:14px;
+  padding-left:20px;will-change:transform;animation:shuffle 26s linear infinite;
+}
+@keyframes shuffle{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+.queue svg{height:74px;width:auto;flex:0 0 auto}
+.queue .van{height:92px}
+.strip .tarmac{height:26px;background:var(--white);
+  border-bottom:5px solid rgba(18,58,82,.12)}
+
+/* ---------- section shell ---------- */
+section.band{position:relative;padding:74px 0;overflow:hidden}
+.band h2{font-size:clamp(2.4rem,6vw,4.2rem);text-align:center}
+.band .sub{text-align:center;font-weight:700;max-width:620px;margin:22px auto 0;
+  text-shadow:0 2px 0 rgba(12,42,61,.22)}
+
+/* ---------- countdown ---------- */
+.clock{display:flex;justify-content:center;gap:10px;margin-top:44px;flex-wrap:wrap}
+.clock .sep{align-self:center;font-family:'Baloo 2','Trebuchet MS',system-ui,sans-serif;font-size:2.4rem;
+  font-weight:800;color:var(--white);text-shadow:0 3px 0 rgba(12,42,61,.3)}
+.cell{
+  background:var(--white);border:4px solid var(--ink-deep);border-radius:16px;
+  min-width:108px;padding:14px 10px 10px;text-align:center;
+  box-shadow:0 6px 0 rgba(12,42,61,.22);
+}
+.cell b{
+  display:block;font-family:'Baloo 2','Trebuchet MS',system-ui,sans-serif;font-weight:800;
+  font-size:2.9rem;line-height:1;font-variant-numeric:tabular-nums;
+}
+.cell:nth-child(4n+1) b{color:var(--pink)}
+.cell:nth-child(4n+3) b{color:var(--sky-deep)}
+.cell span{display:block;margin-top:4px;color:var(--ink);font-weight:800;
+  font-size:.72rem;letter-spacing:.14em;text-transform:uppercase}
+.clock.ended .cell b{color:var(--ink)}
+.ended-note{display:none;text-align:center;font-weight:800;margin-top:22px;
+  text-shadow:0 2px 0 rgba(12,42,61,.25)}
+.clock.ended ~ .ended-note{display:block}
+
+/* ---------- leaderboard ---------- */
+.board{margin-top:46px;position:relative}
+.board .head{
+  display:grid;grid-template-columns:56px minmax(0,1.5fr) minmax(0,1.5fr) minmax(0,.9fr);
+  gap:12px;padding:0 22px 12px;font-weight:800;font-size:1rem;
+  text-shadow:0 2px 0 rgba(12,42,61,.22);
+}
+.board .head span:last-child{text-align:right}
+.row{
+  display:grid;grid-template-columns:56px minmax(0,1.5fr) minmax(0,1.5fr) minmax(0,.9fr);
+  gap:12px;align-items:center;
+  padding:12px 22px;border-radius:12px;margin-bottom:6px;
+  background:transparent;
+}
+.row:nth-child(even){background:var(--sky-row)}
+.row .rank{font-weight:800;font-size:1.05rem}
+.row .who{font-weight:700;min-width:0;overflow-wrap:anywhere}
+.row .val{text-align:right;font-weight:800;font-size:1.1rem;
+  font-variant-numeric:tabular-nums;white-space:nowrap}
+.tag{
+  display:inline-block;max-width:100%;padding:5px 13px;border-radius:9px;
+  background:var(--white);border:2px solid var(--ink-deep);
+  color:var(--sky-dark);font-weight:800;font-size:.95rem;
+  box-shadow:0 3px 0 rgba(12,42,61,.22);overflow-wrap:anywhere;
+}
+.row:nth-child(even) .tag{color:var(--pink)}
+
+.row--lead{
+  position:relative;background:var(--sky-deep);
+  border:4px solid var(--ink-deep);border-radius:14px;
+  padding:16px 22px;margin-bottom:14px;
+  box-shadow:0 7px 0 rgba(12,42,61,.28);
+}
+.row--lead .val{font-size:1.5rem;font-family:'Baloo 2','Trebuchet MS',system-ui,sans-serif}
+.row--lead .who{font-family:'Grand Hotel','Segoe Script',cursive;font-size:1.7rem;font-weight:400}
+.row--lead .tag{color:var(--sky-dark)}
+.crown{width:26px;height:26px;fill:var(--white)}
+.first-badge{
+  position:absolute;left:-14px;top:-16px;background:var(--white);color:var(--ink);
+  border:3px solid var(--ink-deep);border-radius:10px;padding:2px 9px;
+  font-weight:800;font-size:.78rem;box-shadow:0 3px 0 rgba(12,42,61,.22);
+}
+.board-note{text-align:center;margin-top:26px;font-weight:700;opacity:.92;
+  text-shadow:0 2px 0 rgba(12,42,61,.2)}
+
+/* ---------- rules ---------- */
+.rules{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+  gap:18px;margin-top:44px}
+.rule{
+  background:var(--white);color:var(--ink);border:4px solid var(--ink-deep);
+  border-radius:18px;padding:22px;box-shadow:0 6px 0 rgba(12,42,61,.22);
+}
+.rule b{display:block;font-family:'Baloo 2','Trebuchet MS',system-ui,sans-serif;font-size:1.35rem;
+  color:var(--sky-dark);margin-bottom:6px}
+.rule p{margin:0;font-weight:600;font-size:.97rem}
+
+/* ---------- footer ---------- */
+footer{
+  position:relative;z-index:2;text-align:center;padding:54px 20px 70px;
+  font-weight:700;font-size:.9rem;
+}
+footer .links{display:flex;gap:18px;justify-content:center;margin-bottom:14px;flex-wrap:wrap}
+footer a{text-decoration:none;border-bottom:2px solid rgba(255,255,255,.5);padding-bottom:2px}
+footer a:hover{border-bottom-color:var(--white)}
+footer .fine{opacity:.8;font-weight:600;max-width:560px;margin:10px auto 0;font-size:.82rem}
+
+/* ---------- responsive ---------- */
+@media (max-width:900px){
+  .hero{padding-top:150px;min-height:0}
+  .hero .grid{grid-template-columns:1fr}
+  .hero-copy .eyebrow,.hero-copy h1{text-align:center}
+  .hero h1 .l2{padding-left:0}
+  .bubble{-webkit-text-stroke-width:7px}
+  .hero-art{max-width:330px;margin-top:10px}
+  .board .head{display:none}
+  .row,.row--lead{grid-template-columns:38px minmax(0,1fr);row-gap:6px}
+  .row .val,.row--lead .val{grid-column:2;text-align:left}
+  .row .who{grid-column:2}
+  .row .tag{grid-column:2}
+}
+@media (max-width:520px){
+  header{padding:16px 14px;gap:8px;justify-content:center}
+  .btn{padding:10px 16px;font-size:.9rem}
+  .cell{min-width:74px}
+  .cell b{font-size:2.1rem}
+  .bubble{-webkit-text-stroke-width:6px}
+}
+
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation:none!important;transition:none!important}
+  html{scroll-behavior:auto}
+}
+</style>
+</head>
+<body>
+
+<header>
+  <a class="btn" href="#leaderboard">Bid Leaderboard</a>
+  <a class="btn btn--solid" href="#bid" data-bid>
+    <span class="tg"><svg viewBox="0 0 24 24"><path d="M21.9 4.3 18.7 20c-.2 1-.9 1.3-1.8.8l-4.9-3.6-2.4 2.3c-.3.3-.5.5-1 .5l.4-5 9.1-8.2c.4-.4-.1-.6-.6-.2L6.2 13.1l-4.8-1.5c-1-.3-1-1 .2-1.5l18.9-7.3c.9-.3 1.6.2 1.4 1.5z"/></svg></span>
+    Make a bid
+  </a>
+</header>
+
+<!-- ============ HERO ============ -->
+<div class="hero">
+  <div class="deco" aria-hidden="true">
+    <div class="h" style="width:340px;height:340px;left:-70px;top:120px">
+      <svg viewBox="0 0 24 24"><path d="M12 21C7 17.5 3 14.6 3 11a4.5 4.5 0 0 1 9-1.6A4.5 4.5 0 0 1 21 11c0 3.6-4 6.5-9 10z"/></svg>
+    </div>
+    <div class="h" style="width:220px;height:220px;right:6%;top:58%">
+      <svg viewBox="0 0 24 24"><path d="M12 21C7 17.5 3 14.6 3 11a4.5 4.5 0 0 1 9-1.6A4.5 4.5 0 0 1 21 11c0 3.6-4 6.5-9 10z"/></svg>
+    </div>
+  </div>
+
+  <div class="wrap grid">
+    <div class="hero-copy">
+      <p class="eyebrow">Bonnie Blue</p>
+      <h1 class="bubble">
+        Choose a
+        <span class="l2">Nam<span class="pk">e</span>
+          <span class="heart" aria-hidden="true"><svg viewBox="0 0 24 24" style="fill:var(--pink);stroke:var(--ink-deep);stroke-width:1.6"><path d="M12 21C7 17.5 3 14.6 3 11a4.5 4.5 0 0 1 9-1.6A4.5 4.5 0 0 1 21 11c0 3.6-4 6.5-9 10z"/></svg></span>
+        </span>
+      </h1>
+      <p class="lede">
+        Come up with a name and bid on it. The winning name gains access to a
+        private party to celebrate the name selection.
+      </p>
+      <div class="hero-cta">
+        <a class="btn" href="#rules">Rules</a>
+        <a class="btn btn--solid" href="#bid" data-bid>
+          <span class="tg"><svg viewBox="0 0 24 24"><path d="M21.9 4.3 18.7 20c-.2 1-.9 1.3-1.8.8l-4.9-3.6-2.4 2.3c-.3.3-.5.5-1 .5l.4-5 9.1-8.2c.4-.4-.1-.6-.6-.2L6.2 13.1l-4.8-1.5c-1-.3-1-1 .2-1.5l18.9-7.3c.9-.3 1.6.2 1.4 1.5z"/></svg></span>
+          Make a bid
+        </a>
+      </div>
+    </div>
+
+    <!-- Swap the .frame contents for <img src="hero.jpg" alt="..."> when you have art -->
+    <div class="hero-art">
+      <div class="frame">
+        <p>Drop the hero image in here<br />(3:4 works best)</p>
+        <div class="qmark qmark--pink" aria-hidden="true">?</div>
+        <div class="qmark qmark--blue" aria-hidden="true">?</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============ QUEUE STRIP ============ -->
+<div class="strip" aria-hidden="true">
+  <div class="road">
+    <div class="queue" id="queue"></div>
+  </div>
+  <div class="tarmac"></div>
+</div>
+
+<!-- ============ AUCTION ============ -->
+<section class="band" id="auction">
+  <div class="cloud" style="width:180px;right:2%;top:14%" aria-hidden="true">
+    <svg viewBox="0 0 120 60"><path d="M30 50a18 18 0 0 1 2-35 24 24 0 0 1 45 4 15 15 0 0 1-3 31z"/></svg>
+  </div>
+  <div class="wrap">
+    <h2 class="bubble">
+      <span class="heart" aria-hidden="true"><svg viewBox="0 0 24 24" style="fill:var(--sky-pale);stroke:var(--ink-deep);stroke-width:1.6"><path d="M12 21C7 17.5 3 14.6 3 11a4.5 4.5 0 0 1 9-1.6A4.5 4.5 0 0 1 21 11c0 3.6-4 6.5-9 10z"/></svg></span>
+      A<span class="pk">U</span>CTION
+      <span class="heart" aria-hidden="true"><svg viewBox="0 0 24 24" style="fill:var(--pink);stroke:var(--ink-deep);stroke-width:1.6"><path d="M12 21C7 17.5 3 14.6 3 11a4.5 4.5 0 0 1 9-1.6A4.5 4.5 0 0 1 21 11c0 3.6-4 6.5-9 10z"/></svg></span>
+    </h2>
+
+    <div class="clock" id="clock" role="timer" aria-live="off">
+      <div class="cell"><b data-unit="days">00</b><span>Days</span></div>
+      <div class="sep">:</div>
+      <div class="cell"><b data-unit="hours">00</b><span>Hours</span></div>
+      <div class="sep">:</div>
+      <div class="cell"><b data-unit="minutes">00</b><span>Minutes</span></div>
+      <div class="sep">:</div>
+      <div class="cell"><b data-unit="seconds">00</b><span>Seconds</span></div>
+    </div>
+    <p class="ended-note">Bidding is closed. The winning name will be announced shortly.</p>
+  </div>
+</section>
+
+<!-- ============ LEADERBOARD ============ -->
+<section class="band" id="leaderboard">
+  <div class="wrap">
+    <h2 class="bubble">Leader<span class="pk">board</span></h2>
+    <p class="sub">Top bids, highest first. Placeholder data — swap the <code>BIDS</code> array in the script below.</p>
+
+    <div class="board">
+      <div class="head" aria-hidden="true">
+        <span>#</span><span>Name</span><span>Participant</span><span>Value</span>
+      </div>
+      <div id="rows"></div>
+      <p class="board-note">Outbid? Post a higher number and take the top slot.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ RULES ============ -->
+<section class="band" id="rules">
+  <div class="cloud" style="width:150px;left:3%;bottom:8%" aria-hidden="true">
+    <svg viewBox="0 0 120 60"><path d="M30 50a18 18 0 0 1 2-35 24 24 0 0 1 45 4 15 15 0 0 1-3 31z"/></svg>
+  </div>
+  <div class="wrap">
+    <h2 class="bubble">R<span class="pk">u</span>les</h2>
+    <div class="rules">
+      <div class="rule">
+        <b>1. Submit a name</b>
+        <p>One name per bid. Keep it something that can actually be said out loud in public.</p>
+      </div>
+      <div class="rule">
+        <b>2. Attach a number</b>
+        <p>Your bid is the amount you're pledging. Bids are public and show on the leaderboard.</p>
+      </div>
+      <div class="rule">
+        <b>3. Highest bid wins</b>
+        <p>When the countdown hits zero, the top bid at that moment takes the name.</p>
+      </div>
+      <div class="rule">
+        <b>4. Winner gets the invite</b>
+        <p>The winning bidder gets access to the private party celebrating the name selection.</p>
+      </div>
+      <div class="rule">
+        <b>5. Bad-faith bids get pulled</b>
+        <p>Slurs, impersonation, and joke bids nobody intends to honour are removed without notice.</p>
+      </div>
+      <div class="rule">
+        <b>6. Final say</b>
+        <p>Any bid can be rejected for any reason. Nothing here is a binding offer or a contract.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="links">
+    <a href="#bid" data-bid>Make a bid</a>
+    <a href="#leaderboard">Leaderboard</a>
+    <a href="#rules">Rules</a>
+  </div>
+  <p>&copy; <span id="yr"></span> Bonnie Blue. All rights reserved.</p>
+  <p class="fine">18+ only. Entertainment purposes. Not an offer, security, or investment of any kind.</p>
+</footer>
+
+<script>
+/* =========================================================
+   CONFIG — the three things you'll actually want to edit
+   ========================================================= */
+
+// When bidding closes. ISO 8601, with timezone.
+const AUCTION_ENDS = '2026-10-01T20:00:00Z';
+
+// Where the "Make a bid" buttons point (Telegram, form, mailto, whatever).
+const BID_URL = '#';
+
+// Leaderboard rows — PLACEHOLDER DATA. Highest first isn't required;
+// it gets sorted by value below.
+const BIDS = [
+  { name: 'Group Project',  who: 'Placeholder Bidder 1',  value: 750000 },
+  { name: 'Plan B',         who: 'Placeholder Bidder 2',  value: 666000 },
+  { name: 'Mixed Nuts',     who: 'Placeholder Bidder 3',  value: 499999 },
+  { name: 'Blue Steel',     who: 'Placeholder Bidder 4',  value: 420000 },
+  { name: 'Tiny Legend',    who: 'Placeholder Bidder 5',  value: 401000 },
+  { name: 'Nepo Baby',      who: 'Placeholder Bidder 6',  value: 369999 },
+  { name: 'Scruffy',        who: 'Placeholder Bidder 7',  value: 314159 },
+  { name: 'Ignite',         who: 'Placeholder Bidder 8',  value: 275000 },
+  { name: 'Sky',            who: 'Placeholder Bidder 9',  value: 250000 },
+  { name: 'Marbles',        who: 'Placeholder Bidder 10', value: 150000 },
+  { name: 'Houdini',        who: 'Placeholder Bidder 11', value: 100000 },
+  { name: 'Your Name Here', who: 'You?',                  value: 50000  },
+];
+
+/* =========================================================
+   Wiring
+   ========================================================= */
+
+document.getElementById('yr').textContent = new Date().getFullYear();
+
+for (const a of document.querySelectorAll('[data-bid]')) {
+  a.setAttribute('href', BID_URL);
+  if (/^https?:/i.test(BID_URL)) { a.target = '_blank'; a.rel = 'noopener'; }
+}
+
+/* ---- countdown ---- */
+const clock = document.getElementById('clock');
+const units = {
+  days:    clock.querySelector('[data-unit="days"]'),
+  hours:   clock.querySelector('[data-unit="hours"]'),
+  minutes: clock.querySelector('[data-unit="minutes"]'),
+  seconds: clock.querySelector('[data-unit="seconds"]'),
+};
+const target = new Date(AUCTION_ENDS).getTime();
+const pad = n => String(n).padStart(2, '0');
+
+function tick() {
+  let left = target - Date.now();
+  if (!Number.isFinite(target) || left <= 0) {
+    left = 0;
+    clock.classList.add('ended');
+    clearInterval(timer);
+  }
+  const s = Math.floor(left / 1000);
+  units.days.textContent    = pad(Math.floor(s / 86400));
+  units.hours.textContent   = pad(Math.floor(s / 3600) % 24);
+  units.minutes.textContent = pad(Math.floor(s / 60) % 60);
+  units.seconds.textContent = pad(s % 60);
+}
+const timer = setInterval(tick, 1000);
+tick();
+
+/* ---- leaderboard ---- */
+const money = new Intl.NumberFormat('en-US', {
+  style: 'currency', currency: 'USD', maximumFractionDigits: 0,
+});
+const crown = '<svg class="crown" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 8l4.5 3.5L12 5l4.5 6.5L21 8l-1.8 10H4.8z"/></svg>';
+
+document.getElementById('rows').innerHTML = [...BIDS]
+  .sort((a, b) => b.value - a.value)
+  .map((bid, i) => {
+    const lead = i === 0;
+    return `
+      <div class="row${lead ? ' row--lead' : ''}">
+        ${lead ? '<span class="first-badge">1st</span>' : ''}
+        <span class="rank">${lead ? crown : i + 1}</span>
+        <span><span class="tag">${esc(bid.name)}</span></span>
+        <span class="who">${esc(bid.who)}</span>
+        <span class="val">${money.format(bid.value)}</span>
+      </div>`;
+  })
+  .join('');
+
+function esc(s) {
+  return String(s).replace(/[&<>"']/g, c => (
+    { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]
+  ));
+}
+
+/* ---- queue strip: original silhouettes, one holding flowers ---- */
+const person = (suit) => `
+  <svg viewBox="0 0 40 80" aria-hidden="true">
+    <g stroke="#0c2a3d" stroke-width="2.6" stroke-linejoin="round">
+      <circle cx="20" cy="13" r="10" fill="${suit ? '#2b3a46' : '#f7f0e6'}"/>
+      <path d="M8 78V40a12 12 0 0 1 24 0v38z" fill="${suit ? '#2b3a46' : '#f7f0e6'}"/>
+    </g>
+    ${suit ? '<circle cx="31" cy="46" r="6" fill="#ff8fd0" stroke="#0c2a3d" stroke-width="2.4"/>' : ''}
+  </svg>`;
+
+const van = `
+  <svg class="van" viewBox="0 0 150 90" aria-hidden="true">
+    <g stroke="#0c2a3d" stroke-width="3" stroke-linejoin="round">
+      <path d="M8 68V34a6 6 0 0 1 6-6h78l26 22v18z" fill="#4ec3e9"/>
+      <path d="M96 32h12l18 16H96z" fill="#9bdcf3"/>
+      <circle cx="38" cy="70" r="11" fill="#22303a"/>
+      <circle cx="110" cy="70" r="11" fill="#22303a"/>
+    </g>
+    <text x="50" y="52" text-anchor="middle" font-family="Baloo 2, sans-serif"
+          font-size="15" font-weight="800" fill="#fff" stroke="#0c2a3d"
+          stroke-width="3" paint-order="stroke">BONNIE</text>
+  </svg>`;
+
+// Two identical halves so the marquee loops seamlessly.
+const half = Array.from({ length: 17 }, (_, i) => person(i === 11)).join('') + van;
+document.getElementById('queue').innerHTML = half + half;
+</script>
+</body>
+</html>
