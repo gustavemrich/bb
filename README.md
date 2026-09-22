@@ -12,12 +12,31 @@ of the `<script>` at the bottom of `index.html`:
 
 | Constant | What it does |
 | --- | --- |
-| `AUCTION_ENDS` | ISO 8601 timestamp the countdown counts down to. Include a timezone. |
+| `AUCTION_ENDS` | ISO 8601 timestamp (with timezone) the clock counts down to, or `null`. |
+| `COUNTDOWN_MINUTES` | Used only when `AUCTION_ENDS` is `null`. Currently `30`. |
 | `BID_URL` | Where every "Make a bid" button points (Telegram, form, mailto). |
 | `BIDS` | Leaderboard rows. Sorted by `value` at render time, so order doesn't matter. |
 
-The hero image is a dashed placeholder. Replace the contents of `.hero-art .frame`
-with `<img src="hero.jpg" alt="…">` — it's already styled to cover a 3:4 box.
+### The countdown
+
+Ships as `AUCTION_ENDS = null`, so the clock starts at `COUNTDOWN_MINUTES` (30)
+on every page load and reads `00 : 00 : 30 : 00`.
+
+**That restarts on every refresh, and each visitor gets their own 30 minutes.**
+It looks right for a demo, but it is not a real deadline. Before the auction is
+live, set `AUCTION_ENDS` to a fixed timestamp so everyone sees the same clock:
+
+```js
+const AUCTION_ENDS = '2026-10-01T20:00:00Z';
+```
+
+At zero the clock freezes and a "bidding is closed" line appears.
+
+### The hero image
+
+Put a file at `assets/hero.jpg` and it appears automatically — see
+[`assets/README.md`](assets/README.md) for sizing. If it's missing, the page
+falls back to a dashed placeholder box, so it's safe to deploy without it.
 
 ## Run locally
 
