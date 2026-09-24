@@ -77,15 +77,52 @@ img{max-width:100%;display:block}
 .cloud{position:absolute;opacity:.85;pointer-events:none}
 .cloud svg{fill:var(--white);width:100%;height:100%}
 
+/* ---------- winner banner ---------- */
+.winner{
+  position:relative;z-index:30;
+  background:var(--white);color:var(--ink);
+  border-bottom:5px solid var(--ink-deep);
+  padding:22px 20px 20px;text-align:center;
+}
+.winner .inner{max-width:var(--max);margin:0 auto}
+.winner .kicker{
+  font-family:'Grand Hotel','Segoe Script',cursive;
+  font-size:clamp(1.5rem,3vw,2.3rem);line-height:1;
+  color:var(--sky-deep);margin:0;
+}
+.winner h2{
+  font-family:'Baloo 2','Trebuchet MS',system-ui,sans-serif;font-weight:800;
+  text-transform:uppercase;line-height:1;letter-spacing:.01em;
+  font-size:clamp(1.5rem,4vw,2.9rem);
+  color:var(--ink-deep);margin:6px 0 0;
+}
+.winner h2 .pk{color:var(--pink);-webkit-text-stroke:2px var(--ink-deep);paint-order:stroke fill}
+.winner .say{
+  max-width:720px;margin:12px auto 0;font-weight:700;
+  font-size:clamp(.95rem,1.3vw,1.08rem);color:var(--ink);
+}
+.winner .name{
+  display:inline-flex;align-items:baseline;gap:10px;
+  margin-top:14px;padding:10px 22px;
+  border:4px solid var(--ink-deep);border-radius:14px;
+  background:var(--sky);color:var(--white);
+  box-shadow:0 5px 0 rgba(12,42,61,.25);
+}
+.winner .name small{font-weight:800;font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;opacity:.9}
+.winner .name b{
+  font-family:'Baloo 2','Trebuchet MS',system-ui,sans-serif;font-weight:800;
+  font-size:clamp(1.6rem,3.4vw,2.3rem);line-height:1;
+}
+
 /* ---------- header ---------- */
 header{
-  position:absolute;top:0;left:0;right:0;z-index:20;
+  position:relative;z-index:20;
   display:flex;justify-content:flex-end;gap:12px;
   padding:22px 26px;flex-wrap:wrap;
 }
 
 /* ---------- hero ---------- */
-.hero{position:relative;min-height:640px;padding:120px 0 0;overflow:hidden}
+.hero{position:relative;min-height:560px;padding:24px 0 0;overflow:hidden}
 .hero .grid{
   display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,.95fr);
   gap:30px;align-items:center;
@@ -245,7 +282,7 @@ footer .fine{opacity:.8;font-weight:600;max-width:560px;margin:10px auto 0;font-
 
 /* ---------- responsive ---------- */
 @media (max-width:900px){
-  .hero{padding-top:150px;min-height:0}
+  .hero{padding-top:34px;min-height:0}
   .hero .grid{grid-template-columns:1fr}
   .hero-copy .eyebrow,.hero-copy h1{text-align:center}
   .hero h1 .l2{padding-left:0}
@@ -258,6 +295,7 @@ footer .fine{opacity:.8;font-weight:600;max-width:560px;margin:10px auto 0;font-
   .row .tag{grid-column:2}
 }
 @media (max-width:520px){
+  .winner{padding:18px 14px 16px}
   header{padding:16px 14px;gap:8px;justify-content:center}
   .btn{padding:10px 16px;font-size:.9rem}
   .cell{min-width:74px}
@@ -272,6 +310,19 @@ footer .fine{opacity:.8;font-weight:600;max-width:560px;margin:10px auto 0;font-
 </style>
 </head>
 <body>
+
+<!-- ============ WINNER BANNER ============ -->
+<div class="winner" id="winner">
+  <div class="inner">
+    <p class="kicker">Congratulations</p>
+    <h2>The Kirk Foundation <span class="pk">wins the bid</span></h2>
+    <p class="say">
+      Bidding is done — and, more to the point, the Kirk Foundation actually paid
+      their bid. Thank you for backing it up with the money. The name is going to be:
+    </p>
+    <p class="name"><small>The name is</small> <b>Kirk</b></p>
+  </div>
+</div>
 
 <header>
   <a class="btn" href="#leaderboard">Bid Leaderboard</a>
