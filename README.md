@@ -34,10 +34,10 @@ At zero the clock freezes and a "bidding is closed" line appears.
 
 ### The hero image
 
-The hero is self-hosted from `assets/bonnie.png`:
+The hero is self-hosted from `assets/sol.png`:
 
 ```html
-<img id="heroImg" src="assets/bonnie.png" alt="Bonnie Blue" />
+<img id="heroImg" src="assets/sol.png" alt="Sol" />
 ```
 
 To swap it, drop a new file in `assets/` and update that `src`. If the image fails to load the page falls back to a dashed

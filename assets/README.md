@@ -4,9 +4,9 @@ Drop images here. The site picks them up by filename — no build step, no impor
 
 | File | Used by |
 | --- | --- |
-| `bonnie.png` | The hero panel on the right of the headline. |
+| `sol.png` | The hero panel on the right of the headline. |
 
-## bonnie.png
+## sol.png
 
 - **Aspect ratio:** 3:4 (portrait). Other ratios work — the image is
   `object-fit: cover`, so it crops from the centre rather than squashing.
@@ -22,7 +22,7 @@ you have the art.
 ## Adding a file
 
 ```
-git add assets/bonnie.png
+git add assets/sol.png
 git commit -m "Add hero image"
 git push
 ```
