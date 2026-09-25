@@ -17,6 +17,12 @@ of the `<script>` at the bottom of `index.html`:
 | `BID_URL` | Where every "Make a bid" button points (Telegram, form, mailto). |
 | `BIDS` | Leaderboard rows. Sorted by `value` at render time, so order doesn't matter. |
 
+### The announcement bar
+
+The dark strip above the header (`<div class="announce">`) states the chosen
+name and who chose it. Edit the `<p>` inside it to change the wording; the
+`<b>` is what gets the display font and pale-blue highlight.
+
 ### The countdown
 
 Ships as `AUCTION_ENDS = null`, so the clock starts at `COUNTDOWN_MINUTES` (30)
