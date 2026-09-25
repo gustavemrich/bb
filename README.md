@@ -20,8 +20,9 @@ of the `<script>` at the bottom of `index.html`:
 ### The announcement bar
 
 The dark strip above the header (`<div class="announce">`) states the chosen
-name and who chose it. Edit the `<p>` inside it to change the wording; the
-`<b>` is what gets the display font and pale-blue highlight.
+name and who chose it, with a smaller `.note` line underneath explaining why
+the winner changed. Edit either `<p>` to change the wording; the `<b>` is what
+gets the display font and pale-blue highlight.
 
 ### The countdown
 
